@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+        user-select: none;
+    }
+    body{
+        margin: 0;
+        padding: 0;
+    }
+.row{
+    max-width: 1000px;
+    margin: auto;
+}
+    .row .column{
+    
+        float: left;
+        width: 25%;
+        padding: 3px;
+        cursor: pointer;
+       
+    }
+    .row .column img:hover{
+        box-shadow: 5px 5px 10px #000;
+    }
+    .row .column img{
+        width: 100%;
+        max-width: 200px;
+    }
+    .row:after{
+        content: '';
+        display: table;
+        clear: both;
+    }
+    .modal{
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(30,30,30,0.9);
+    }
+    .modal .close-btn{
+        
+        position: absolute;
+        color: white;
+        text-decoration: none;
+        font-size: 35px;
+        font-weight: bold;
+        right: 15px;
+        top: 10px;
+
+    }
+    .modal .container{
+        position: relative;
+        
+       margin: auto;
+        width: 90%;
+        margin-top: 50px;
+        max-width: 750px; 
+        
+
+    }
+    .container .slides{
+        width: 100%;
+        display: none;
+    }
+    .slides img{
+        width: 100%;
+    }
+    .container .prev, .next{
+        position: absolute;
+        color: white;
+        text-decoration: none;
+        font-size: 35px;
+        font-weight: bold;
+        top: 50%;
+        transform: translateY(-50%);
+
+
+    }
+    .container .prev{
+    left: 0;
+        padding: 7px 12px;
+        border-radius: 0 6px 6px 0;
+    }
+    .container .next{
+   right: 0;
+        padding: 7px 12px;
+        border-radius: 6px 0 0 6px;
+    }
+    .container .prev:hover, .next:hover{
+        background-color: #555;
+    }
+    .caption{
+    color: white;
+        margin: auto;
+        margin-top: -2px;
+        width: 90%;
+        background-color: #222;
+        text-align: center;
+        padding: 7px;
+        max-width: 750px;
+        position: relative;
+    }
+    .line{
+
+        width: 90%;
+        margin: auto;
+        max-width: 750px;
+        position: relative;
+        z-index: 100;
+        overflow: hidden;
+        
+    }
+    .line .column{
+        float: left;
+        width: 25%;
+        opacity: 0.4;
+        padding: 5px;
+        
+    }
+    .line .column .demo{
+        
+        cursor: pointer;
+        
+        width: 100%;
+    }
+    .line .column{
+        opacity: 0.5;
+    }
+    .line .column:hover{
+        opacity: 1;
+    }
+  .line .column:hover img{
+    box-shadow: 5px 5px 10px #000;
+    
+ 
+ 
+ }
+ .line .column.active{
+    
+    
+    opacity: 1;
+ }
+ .line .column.active img{
+    box-shadow: 5px 5px 10px #000;
+
+ }
+
+
+</style>
+<body>
+         <div class="row">
+        <div class="column">
+            <img src="pexels-etha-34545-128234.jpg" alt="" onclick="modalOpen();currentSlide(1)">
+        </div>
+        <div class="column">
+            <img src="pexels-pixabay-147411.jpg" alt="" onclick="modalOpen();currentSlide(2)">
+            </div>
+            <div class="column">
+                <img src="pexels-pixabay-257360.jpg" alt="" onclick="modalOpen();currentSlide(3)">
+            </div>
+            <div class="column">
+                <img src="pexels-pixabay-33109.jpg" alt="" onclick="modalOpen();currentSlide(4)">
+            </div>
+          
+    </div>
+    <div class="modal" id="myModal">
+        <a href="#" class="close-btn" onclick="closeModal()">&times</a>
+       <div class="container">
+             <div class="slides">
+                <div class="slidetext"></div>
+                <img src="pexels-etha-34545-128234.jpg" alt="" class="fade">
+            </div>
+            <div class="slides">
+                <div class="slidetext"></div>
+                <img src="pexels-pixabay-147411.jpg" alt="" class="fade">
+            </div>
+            <div class="slides">
+                <div class="slidetext"></div>
+                <img src="pexels-pixabay-257360.jpg" alt="" class="fade">
+            </div>
+            <div class="slides">
+                <div class="slidetext"></div>
+                <img src="pexels-pixabay-33109.jpg" alt="" class="fade">
+            </div>
+            <a href="#" class="prev" onclick="next(-1)"><i class="fa-solid fa-chevron-left"></i></a>
+            <a href="#" class="next" onclick="next(1)"><i class="fa-solid fa-chevron-right"></i></a>
+            
+        </div>
+        <div class="caption"></div>
+    
+    <div class="line">
+        <div class="column">
+           <img src="pexels-etha-34545-128234.jpg" alt="Car in the road" class="demo" onclick='currentSlide(1)'>
+            </div>
+            <div class="column">
+            <img src="pexels-pixabay-147411.jpg" alt="House at the river" class="demo" onclick='currentSlide(2)'>
+        </div>
+        <div class="column">
+            <img src="pexels-pixabay-257360.jpg" alt="The lane in the wood" class="demo" onclick="currentSlide(3)">
+        </div>
+        <div class="column">
+            <img src="pexels-pixabay-33109.jpg" alt="Automn in the forest" class="demo" onclick="currentSlide(4)">
+        </div>
+    </div>
+</div>
+<script>
+    let slideList=document.querySelectorAll('.modal .slides');
+    let dotList=document.querySelectorAll('.line .column');
+    let imgList=document.querySelectorAll('.row .column');
+    let modal=document.getElementById('myModal');
+    let caption =document.querySelector('.caption');
+    let slideIndex=1;
+    
+
+    function showSlide(n){
+
+
+        for(let i=0; i<slideList.length; i++){
+            slideList[i].style.display='none';
+        }
+        for(let i=0; i<dotList.length; i++){
+            dotList[i].className=dotList[i].className.replace('active', '')
+        }
+        if(n>slideList.length){
+            slideIndex=1;
+        }
+        if(n<1){
+            slideIndex=slideList.length;
+        }
+
+        slideList[slideIndex-1].style.display='block';
+        dotList[slideIndex-1].className +=' active';
+        caption.innerHTML=dotList[slideIndex-1].children[0].alt;
+
+
+
+    }
+    function closeModal(){
+        modal.style.display='none';
+    }
+    function modalOpen(){
+        modal.style.display='block';
+    }
+    function currentSlide(m){
+        showSlide(slideIndex=m)
+    }
+    function next(m){
+        showSlide(slideIndex+=m);
+    }
+</script>
+</body>
+
+</html>
